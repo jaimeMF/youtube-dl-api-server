@@ -1,7 +1,7 @@
 application: youtube-dl
 
 #Follow the youtube-dl version pattern
-version: 20130222
+version: 2013-02-22
 runtime: python27
 api_version: 1
 threadsafe: no
