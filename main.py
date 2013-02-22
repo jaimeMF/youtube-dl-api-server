@@ -37,6 +37,7 @@ class SimpleFileDownloader(youtube_dl.FileDownloader):
             vids,ie = self._extract(url)
             if vids:
                 self._addVideos(vids)
+                self._addIE(ie)
 
     def extract(self,url):
         videos_info,ie = self._extract(url)
