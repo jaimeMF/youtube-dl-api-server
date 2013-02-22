@@ -1,0 +1,15 @@
+application: youtube-dl
+
+#Follow the youtube-dl version pattern
+version: 20130222
+runtime: python27
+api_version: 1
+threadsafe: no
+
+handlers:
+- url: /api/.*
+  script: main.py
+
+libraries:
+- name: webapp2
+  version: "2.5.1"
