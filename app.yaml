@@ -1,7 +1,6 @@
 application: youtube-dl
 
-#Follow the youtube-dl version pattern
-version: 2013-02-22
+version: alpha
 runtime: python27
 api_version: 1
 threadsafe: no
@@ -9,6 +8,10 @@ threadsafe: no
 handlers:
 - url: /api/.*
   script: main.py
+
+- url: /.*
+  static_files: index.html
+  upload: index.html
 
 libraries:
 - name: webapp2
