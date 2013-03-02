@@ -7,7 +7,7 @@ threadsafe: no
 
 handlers:
 - url: /api/.*
-  script: main.py
+  script: mainGAE.py
 
 - url: /.*
   static_files: index.html

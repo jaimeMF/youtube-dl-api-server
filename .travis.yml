@@ -1,0 +1,16 @@
+language: python
+
+python:
+  - "2.7"
+  
+install: 
+  - pip install youtube_dl --use-mirrors
+  - pip install WebOb --use-mirrors
+  - pip install Paste --use-mirrors
+  - pip install webapp2 --use-mirrors
+
+
+before_script:
+  - python testServer.py &
+
+script: nosetests -v
