@@ -1,5 +1,8 @@
 import webapp2
+
+#Format modules
 import json
+import yaml
 
 import youtube_dl
 
@@ -55,14 +58,20 @@ def videos(url):
 
 class Api(webapp2.RequestHandler):
     def get(self):
-        self.response.headers['Content-Type'] = 'application/json'
         #Allow javascript get requests from other domains
-        self.response.headers['Access-Control-Allow-Origin'] = '*'
+        self.response.headers["Access-Control-Allow-Origin"] = "*"
         url = self.request.get("url")
+        out_format = self.request.get("format","json")
         vids,ie = videos(url)
         dic = {'youtube-dl.version':youtube_dl.__version__,
                'url':url,
                'ie':ie.IE_NAME,
                'videos':vids}
-        json_string = json.dumps(dic)
-        self.response.out.write(json_string)
+        if out_format == "json":
+            response = json.dumps(dic)
+            content_type = "application/json"
+        if out_format == "yaml":
+            response = yaml.safe_dump(dic)
+            content_type = "application/yaml"
+        self.response.headers["Content-Type"] = content_type
+        self.response.out.write(response)
