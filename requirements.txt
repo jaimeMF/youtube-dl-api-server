@@ -1,0 +1,5 @@
+youtube_dl
+WebOb
+Paste
+webapp2
+pyyaml
