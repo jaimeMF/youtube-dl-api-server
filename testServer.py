@@ -1,14 +1,10 @@
-import webapp2
 from paste import httpserver
 
-from APIresponder import Api
+from app import app
 
 """
     A server for testing the api
 """
-
-app = webapp2.WSGIApplication([('/api/', Api)],
-                              debug=True)
 
 def main():
     httpserver.serve(app, host='localhost', port='9191')
