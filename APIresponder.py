@@ -57,21 +57,37 @@ def videos(url):
     return fd.extract(url)
 
 class Api(webapp2.RequestHandler):
+    @property
+    def out_format(self):
+        """The format the response must use"""
+        return self.request.get("format","json")
+    @property
+    def content_type(self):
+        """Content type for the response"""
+        if self.out_format == "json":
+            return "application/json"
+        if self.out_format == "yaml":
+            return "application/yaml"
+    def dumps(self,dic):
+        """Dump a dic to a string using the format specified in the reques"""
+        if self.out_format == "json":
+            return json.dumps(dic)
+        elif self.out_format == "yaml":
+            return yaml.safe_dump(dic)
     def get(self):
         #Allow javascript get requests from other domains
         self.response.headers["Access-Control-Allow-Origin"] = "*"
-        url = self.request.get("url")
-        out_format = self.request.get("format","json")
-        vids,ie = videos(url)
-        dic = {'youtube-dl.version':youtube_dl.__version__,
-               'url':url,
-               'ie':ie.IE_NAME,
-               'videos':vids}
-        if out_format == "json":
-            response = json.dumps(dic)
-            content_type = "application/json"
-        if out_format == "yaml":
-            response = yaml.safe_dump(dic)
-            content_type = "application/yaml"
-        self.response.headers["Content-Type"] = content_type
+        self.response.headers["Content-Type"] = self.content_type
+        
+        errors = (youtube_dl.DownloadError, youtube_dl.ExtractorError)
+        try:
+            url = self.request.get("url")
+            vids,ie = videos(url)
+            dic = {'youtube-dl.version':youtube_dl.__version__,
+                   'url':url,
+                   'ie':ie.IE_NAME,
+                   'videos':vids}
+        except errors as err:
+            dic = {'error': str(err)}
+        response = self.dumps(dic)
         self.response.out.write(response)
