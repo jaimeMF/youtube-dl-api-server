@@ -27,11 +27,12 @@ You can use a web interface on: [youtube-dl-web](http://jaimemf.github.com/youtu
 It really easy to setup your own service:
 
 * If you want to run the API on GAE, you just need to change the application value in `app.yaml`.
-* You can use the script in `testServer.py` if you prefer to run in other server. See [webapp quick start](http://webapp-improved.appspot.com/tutorials/quickstart.nogae.html) for setting the environment.
+* You can run `python youtube_dl_server.py` if you prefer to run in other server. See [webapp quick start](http://webapp-improved.appspot.com/tutorials/quickstart.nogae.html) for setting the environment.
+
 
 
 ######Status
 
-The changes are tested in Travis using the `testServer.py`:
+The changes are tested in Travis using the `youtube_dl_server.py`:
 
 [![Build Status](https://travis-ci.org/jaimeMF/youtube-dl-web.png?branch=master)](https://travis-ci.org/jaimeMF/youtube-dl-web)

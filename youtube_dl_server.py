@@ -3,7 +3,7 @@ from paste import httpserver
 from app import app
 
 """
-    A server for testing the api
+    A server for providing the app anywhere, no need for GAE
 """
 
 def main():
