@@ -1,7 +1,7 @@
-youtube-dl-web
-==============
+youtube-dl-api-server
+=====================
 
-youtube-dl rest api
+A youtube-dl REST API server.
 
 ###How to use it
 
@@ -35,4 +35,4 @@ It really easy to setup your own service:
 
 The changes are tested in Travis using the `youtube_dl_server.py`:
 
-[![Build Status](https://travis-ci.org/jaimeMF/youtube-dl-web.png?branch=master)](https://travis-ci.org/jaimeMF/youtube-dl-web)
+[![Build Status](https://travis-ci.org/jaimeMF/youtube-dl-api-server.png?branch=master)](https://travis-ci.org/jaimeMF/youtube-dl-api-server)
