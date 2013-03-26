@@ -1,7 +1,7 @@
 from paste import httpserver
 import argparse
 
-from app import app
+from .app import app
 
 """
     A server for providing the app anywhere, no need for GAE
