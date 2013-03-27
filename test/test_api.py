@@ -9,7 +9,7 @@ import webapp2
 import json
 import yaml
 
-from app import app
+from youtube_dl_server import app
 
 def getVideoInfo(url, extra_parameters={}):
 	par = ""
