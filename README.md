@@ -20,6 +20,8 @@ You'll get a json file like this:
 
 Then you can use each url for downloading the video.
 
+Read the documentation on [Read The Docs](https://youtube-dl-api-server.readthedocs.org/).
+
 ###Try it online
 You can use a web interface on: [youtube-dl-web](http://jaimemf.github.com/youtube-dl-web/)
 
