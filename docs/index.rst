@@ -11,6 +11,8 @@ Contents:
 .. toctree::
    :maxdepth: 2
    
+   Install
+   server-manual
    API
 
 
