@@ -9,6 +9,10 @@ handlers:
 - url: /api/.*
   script: mainGAE.py
 
+- url: /robots.txt
+  static_files: robots.txt
+  upload: robots.txt
+
 - url: /.*
   static_files: index.html
   upload: index.html
