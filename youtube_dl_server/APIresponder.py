@@ -1,4 +1,6 @@
 import webapp2
+import logging
+import traceback
 
 #Format modules
 import json
@@ -10,7 +12,8 @@ class NoneFile(object):
     '''
     A file-like object that does nothing
     '''
-    def write(self,*args,**kaargs):
+    def write(self,msg):
+        logging.debug(msg)
         pass
     def flush(self,*args,**kaargs):
         pass
@@ -76,5 +79,6 @@ class Api(webapp2.RequestHandler):
                    'videos':vids}
         except errors as err:
             dic = {'error': str(err)}
+            logging.error(traceback.format_exc())
         response = self.dumps(dic)
         self.response.out.write(response)
