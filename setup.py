@@ -11,7 +11,7 @@ setup(name = "youtube_dl_server",
       packages = ["youtube_dl_server"],
       scripts = ["bin/youtube-dl-server"],
       
-      install_requires = ["WebOb", "Paste", "webapp2", "pyyaml", "youtube_dl"],
+      install_requires = ["WebOb", "Paste", "webapp2", "pyyaml", "youtube_dl >= 2013.04.21"],
       
       classifiers = [
         "Topic :: Multimedia :: Video",

@@ -30,7 +30,6 @@ The response is a dictionary with the following key/value pairs:
 
 * ``youtube-dl.version``: The youtube-dl version the server is running.
 * ``url``:
-* ``ie``:
 * ``videos``:
 
 Errors

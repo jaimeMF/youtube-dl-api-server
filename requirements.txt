@@ -1,4 +1,4 @@
-youtube_dl
+youtube_dl >= 2013.04.21
 WebOb
 Paste
 webapp2
