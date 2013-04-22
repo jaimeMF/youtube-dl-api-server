@@ -1,6 +1,6 @@
 application: youtube-dl
 
-version: alpha
+version: alpha-2
 runtime: python27
 api_version: 1
 threadsafe: no
