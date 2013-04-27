@@ -1,6 +1,7 @@
 import webapp2
 import logging
 import traceback
+import sys
 
 #Format modules
 import json
@@ -13,15 +14,24 @@ class NoneFile(object):
     A file-like object that does nothing
     '''
     def write(self,msg):
-        logging.debug(msg)
         pass
     def flush(self,*args,**kaargs):
         pass
+    def isatty(self):
+        return False
+
+class ScreenFile(NoneFile):
+    def write(self,msg):
+        logging.debug(msg)
+
+if not hasattr(sys.stderr,'isatty'):
+    #In GAE it's not defined and we must monkeypatch
+    sys.stderr.isatty = lambda : False
 
 class SimpleFileDownloader(youtube_dl.FileDownloader):
     def __init__(self,*args,**kargs):
         super(SimpleFileDownloader,self).__init__(*args,**kargs)
-        self._screen_file=NoneFile()
+        self._screen_file=ScreenFile()
         self._ies = youtube_dl.gen_extractors()
         for ie in self._ies:
             ie.set_downloader(self)
