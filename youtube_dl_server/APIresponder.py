@@ -36,13 +36,6 @@ class SimpleFileDownloader(youtube_dl.FileDownloader):
         for ie in self._ies:
             ie.set_downloader(self)
 
-    def extract(self,url):
-        videos_info,ie = self._extract(url)
-        if videos_info:
-            self._addVideos(videos_info)
-            self._addIE(ie)
-        return self.videos_info,self.ie
-
 def videos(url):
     '''
     Get a list with a dict for every video founded
