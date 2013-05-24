@@ -42,13 +42,19 @@ def videos(url):
     '''
     fd = SimpleFileDownloader({'outtmpl':'%(title)s'})
     res = fd.extract_info(url, download = False)#(url)
-    r_type = res[0].get('_type', 'video')
     #Do not return yet playlists
-    if r_type == 'video':
-        videos = res
-    elif r_type == 'playlist':
-        videos = res[0]['entries']
-    return videos
+    def clean_res(result):
+        r_type = result.get('_type', 'video')
+        if r_type == 'video':
+            videos = [result]
+        elif r_type == 'playlist':
+            videos = result['entries']
+        elif r_type == 'compat_list':
+            videos = []
+            for r in result['entries']:
+                videos.extend(clean_res(r))
+        return videos
+    return clean_res(res)
 
 class Api(webapp2.RequestHandler):
     @property
