@@ -1,6 +1,6 @@
 import webapp2
 
-from .APIresponder import Api
+from .API import url_map
 
-app = webapp2.WSGIApplication([('/api/', Api)],
+app = webapp2.WSGIApplication(url_map,
                               debug=True)
