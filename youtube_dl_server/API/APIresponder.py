@@ -31,9 +31,9 @@ if not hasattr(sys.stderr, 'isatty'):
     sys.stderr.isatty = lambda: False
 
 
-class SimpleFileDownloader(youtube_dl.FileDownloader):
+class SimpleYDL(youtube_dl.YoutubeDL):
     def __init__(self, *args, **kargs):
-        super(SimpleFileDownloader, self).__init__(*args, **kargs)
+        super(SimpleYDL, self).__init__(*args, **kargs)
         self._screen_file = ScreenFile()
         self._ies = youtube_dl.gen_extractors()
         for ie in self._ies:
@@ -44,8 +44,8 @@ def videos(url):
     '''
     Get a list with a dict for every video founded
     '''
-    fd = SimpleFileDownloader({'outtmpl': '%(title)s'})
-    res = fd.extract_info(url, download=False)
+    ydl = SimpleYDL({'outtmpl': '%(title)s'})
+    res = ydl.extract_info(url, download=False)
 
     #Do not return yet playlists
     def clean_res(result):
