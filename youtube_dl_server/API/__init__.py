@@ -2,4 +2,4 @@ from .APIresponder import Api
 from .Extractors import ListExtractors
 
 url_map = [('/api/', Api),
-           ('/api/list_extactors', ListExtractors)]
+           ('/api/list_extractors', ListExtractors)]
