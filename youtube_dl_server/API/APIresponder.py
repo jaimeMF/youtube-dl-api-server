@@ -53,7 +53,9 @@ def videos(url):
         if r_type == 'video':
             videos = [result]
         elif r_type == 'playlist':
-            videos = result['entries']
+            videos = []
+            for entry in result['entries']:
+                videos.extend(clean_res(entry))
         elif r_type == 'compat_list':
             videos = []
             for r in result['entries']:
