@@ -21,3 +21,4 @@ App Engine
 You can setup an app in the `Google App Engine <https://developers.google.com/appengine/>`_ 
 by changing the ``application`` key in app.yaml to your application name. 
 For using it you just need to do the API calls to :samp:`http://{your-app-name}.appspot.com`.
+It needs some external python modules in :samp:`lib`, you can download them by running :command:`./devscripts/setup-gae.sh`

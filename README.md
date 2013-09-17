@@ -29,7 +29,7 @@ You can use a web interface on: [youtube-dl-web](http://jaimemf.github.com/youtu
 It really easy to setup your own service:
 
 ####Deploy in App Engine
-If you want to run the API on GAE, you just need to change the application value in `app.yaml`.
+If you want to run the API on GAE, you just need to change the application value in `app.yaml` and download some python modules to `lib` by running `./devscripts/setup-gae.sh`.
 
 ####Deploy using a custom sever
 
