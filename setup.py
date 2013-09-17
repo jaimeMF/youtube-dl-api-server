@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name = "youtube_dl_server",
-      version = "alpha.3",
+      version = "alpha.3.1",
       description = "An API server based on youtube_dl",
       long_description = "Get the videos from different sites using a server running youtube_dl",
       author = "Jaime Marquínez Ferrándiz",
