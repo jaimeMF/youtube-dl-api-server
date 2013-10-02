@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 
+import sys
+# Allow direct execution
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import unittest
 
 import urllib2
@@ -35,6 +40,15 @@ class ServerTest(unittest.TestCase):
     def test_TED(self):
         """Test video (TED talk)"""
         test_url = "http://www.ted.com/talks/dan_dennett_on_our_consciousness.html"
+        try:
+            dic = json.loads(getVideoInfo(test_url))
+        except urllib2.URLError as e:
+            self.skip_if_conection_refused(e)
+        self.assertEqual(dic["url"], test_url)
+
+    def test_Vimeo(self):
+        """Test Vimeo support"""
+        test_url = 'http://vimeo.com/56015672'
         try:
             dic = json.loads(getVideoInfo(test_url))
         except urllib2.URLError as e:
