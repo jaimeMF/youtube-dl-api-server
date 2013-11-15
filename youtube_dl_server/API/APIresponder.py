@@ -66,7 +66,7 @@ def videos(url):
 
 class Api(APIHandler):
     def get_response(self):
-        errors = (youtube_dl.DownloadError, youtube_dl.ExtractorError)
+        errors = (youtube_dl.utils.DownloadError, youtube_dl.utils.ExtractorError)
         try:
             url = self.request.get("url")
             vids = videos(url)
