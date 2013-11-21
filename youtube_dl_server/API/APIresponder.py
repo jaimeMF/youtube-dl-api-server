@@ -39,10 +39,6 @@ class SimpleYDL(youtube_dl.YoutubeDL):
         for ie in self._ies:
             ie.set_downloader(self)
 
-    def process_info(self, info_dict):
-        # https://github.com/rg3/youtube-dl/issues/1769
-        return
-
 
 def videos(url):
     '''
