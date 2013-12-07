@@ -13,8 +13,9 @@ echo
 
 echo "__version__ = '$version'" > youtube_dl_server/version.py
 sed -i '' "s/^version: .*/version: $gae_version/" app.yaml
+sed -i '' "s/version = \".*\"/version = \"$version\"/" setup.py
 
-git add youtube_dl_server/version.py app.yaml
+git add youtube_dl_server/version.py app.yaml setup.py
 git commit -m "Release $version"
 git tag $version
 
