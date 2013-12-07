@@ -42,7 +42,10 @@ def videos(url):
     '''
     Get a list with a dict for every video founded
     '''
-    ydl = SimpleYDL({})
+    ydl_params = {
+        'cachedir': None,
+    }
+    ydl = SimpleYDL(ydl_params)
     res = ydl.extract_info(url, download=False)
 
     #Do not return yet playlists
