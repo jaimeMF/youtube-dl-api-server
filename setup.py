@@ -17,7 +17,7 @@ setup(name = "youtube_dl_server",
         "Paste",
         "webapp2",
         "pyyaml",
-        "youtube_dl >= 2013.11.21"
+        "youtube_dl >= 2013.12.04"
       ],
       
       classifiers = [

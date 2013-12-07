@@ -35,16 +35,14 @@ class SimpleYDL(youtube_dl.YoutubeDL):
     def __init__(self, *args, **kargs):
         super(SimpleYDL, self).__init__(*args, **kargs)
         self._screen_file = ScreenFile()
-        self._ies = youtube_dl.gen_extractors()
-        for ie in self._ies:
-            ie.set_downloader(self)
+        self.add_default_info_extractors()
 
 
 def videos(url):
     '''
     Get a list with a dict for every video founded
     '''
-    ydl = SimpleYDL({'outtmpl': '%(title)s'})
+    ydl = SimpleYDL({})
     res = ydl.extract_info(url, download=False)
 
     #Do not return yet playlists
