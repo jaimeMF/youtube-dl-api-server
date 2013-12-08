@@ -8,6 +8,7 @@ threadsafe: no
 handlers:
 - url: /api/.*
   script: mainGAE.py
+  secure: optional
 
 - url: /robots.txt
   static_files: robots.txt
