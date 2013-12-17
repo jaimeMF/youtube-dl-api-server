@@ -1,7 +1,8 @@
 #!/bin/sh
 
-# Download the required libraries to lib/
+root=$(pwd)
 
+# Download the required libraries to lib/
 BUILD_DIR=./build/gae-setup
 LIB_DIR=./lib
 echo "Downloading python packages"
@@ -15,8 +16,7 @@ cp -R "${BUILD_DIR}/youtube-dl/youtube_dl" "${LIB_DIR}"
 (
     cd "${LIB_DIR}/youtube_dl"
     echo 'Patching youtube_dl'
-    sed 's/import fcntl/# Removed fcntl import/g' utils.py > utils.py.temp
-    mv utils.py.temp utils.py
+    "${root}/devscripts/gae-patch-youtube-dl.sh"
 )
 
 rm -rf "${BUILD_DIR}"
