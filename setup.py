@@ -9,7 +9,7 @@ setup(name = "youtube_dl_server",
       author = "Jaime Marquínez Ferrándiz",
       author_email = "jaime.marquinez.ferrandiz@gmail.com",
       url = "https://github.com/jaimeMF/youtube-dl-api-server",
-      packages = ["youtube_dl_server"],
+      packages = ["youtube_dl_server", "youtube_dl_server.API"],
       scripts = ["bin/youtube-dl-server"],
       
       install_requires = [
