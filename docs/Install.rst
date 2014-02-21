@@ -5,7 +5,7 @@ How to install **youtube-dl-api-server**
 
 Using pip
 *********
-Just run :command:`pip install youtube_dl_server`.
+Just run :command:`pip install --pre youtube_dl_server`.
 
 Then you can start using the server with :program:`youtube-dl-server`.
 

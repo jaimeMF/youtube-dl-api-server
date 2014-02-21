@@ -33,7 +33,7 @@ If you want to run the API on GAE, you just need to change the application value
 
 ####Deploy using a custom sever
 
-* Install by running `pip install youtube_dl_server`
+* Install by running `pip install --pre youtube_dl_server`
 * Then run `youtube-dl-server`, it will run a server on localhost:9191.
 
 You can also download the source code and run `python -m youtube_dl_server`. See [webapp quick start](http://webapp-improved.appspot.com/tutorials/quickstart.nogae.html) for setting the environment.
