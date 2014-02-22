@@ -31,7 +31,7 @@ It really easy to setup your own service:
 ####Deploy in App Engine
 If you want to run the API on GAE, you just need to change the application value in `app.yaml` and download some python modules to `lib` by running `./devscripts/setup-gae.sh`.
 
-####Deploy using a custom sever
+####Deploy using a custom server
 
 * Install by running `pip install --pre youtube_dl_server`
 * Then run `youtube-dl-server`, it will run a server on localhost:9191.
