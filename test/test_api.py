@@ -19,7 +19,7 @@ class ServerTest(unittest.TestCase):
 
     def get_video_info(self, url):
         resp = self.app.get('/api/?%s' % compat_urllib_parse.urlencode({'url': url}))
-        return json.loads(resp.data)
+        return json.loads(resp.data.decode(resp.charset))
 
     def test_TED(self):
         """Test video (TED talk)"""
