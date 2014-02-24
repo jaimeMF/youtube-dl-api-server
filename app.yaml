@@ -7,7 +7,7 @@ threadsafe: no
 
 handlers:
 - url: /api/.*
-  script: mainGAE.py
+  script: mainGAE.app
   secure: optional
 
 - url: /robots.txt
@@ -19,10 +19,10 @@ handlers:
   upload: index.html
 
 libraries:
-- name: webapp2
-  version: "2.5.1"
 - name: ssl
   version: latest
+- name: jinja2
+  version: "2.6"
 
 
 skip_files:

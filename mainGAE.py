@@ -8,11 +8,6 @@ import youtube_dl
 youtube_dl.extractor.youtube.get_cachedir = lambda *args, **kargs: None
 
 
-from youtube_dl_server import app, setup
-
-def main():
-    setup()
-    app.run()
-
-if __name__=='__main__':
-    main()
+from youtube_dl_server.app import app
+from youtube_dl_server.utils import setup
+setup()

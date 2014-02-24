@@ -1,4 +1,3 @@
-from paste import httpserver
 import argparse
 
 from .app import app
@@ -35,7 +34,4 @@ def main():
         exit(0)
     
     setup()
-    httpserver.serve(app, host='localhost', port=args.port)
-
-if __name__ == '__main__':
-    main()
+    app.run('localhost', args.port)

@@ -1,5 +1,2 @@
 youtube_dl >= 2013.12.04
-WebOb
-Paste
-webapp2
-pyyaml
+flask

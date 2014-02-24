@@ -10,7 +10,7 @@ setup(
     author='Jaime Marquínez Ferrándiz',
     author_email='jaime.marquinez.ferrandiz@gmail.com',
     url='https://github.com/jaimeMF/youtube-dl-api-server',
-    packages=['youtube_dl_server', 'youtube_dl_server.API'],
+    packages=['youtube_dl_server'],
     entry_points={
         'console_scripts': [
             'youtube-dl-server = youtube_dl_server.server:main',
@@ -18,11 +18,8 @@ setup(
     },
 
     install_requires=[
-        'WebOb',
-        'Paste',
-        'webapp2',
-        'pyyaml',
-        'youtube_dl >= 2013.12.04'
+        'Flask',
+        'youtube_dl >= 2013.12.04',
     ],
 
     classifiers=[
