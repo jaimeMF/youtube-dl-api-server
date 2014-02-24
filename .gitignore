@@ -33,4 +33,7 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
 youtube_dl
+# Gae folder
+gae

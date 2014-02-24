@@ -1,4 +1,4 @@
-from .server import main, setup
-from app import app
+from .app import app
+from .utils import setup
 
 from .version import __version__

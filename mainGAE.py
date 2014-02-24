@@ -1,6 +1,6 @@
 import sys
 import os
-sys.path.append(os.path.join(os.path.dirname(__file__), 'lib'))
+sys.path.append(os.path.join(os.path.dirname(__file__), 'gae/lib'))
 
 # Monkeypatch some youtube_dl functions that use features not available in GAE
 import youtube_dl

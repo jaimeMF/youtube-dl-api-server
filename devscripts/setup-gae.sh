@@ -1,16 +1,28 @@
 #!/bin/sh
 
 root=$(pwd)
+GAE_DIR=./gae
+BUILD_DIR=${GAE_DIR}/build
+LIB_DIR=${GAE_DIR}/lib
+GAE_REQ=${GAE_DIR}/gae_requirements.txt
+CACHE_DIR=${GAE_DIR}/tmp/cache
 
-# Download the required libraries to lib/
-BUILD_DIR=./build/gae-setup
-LIB_DIR=./lib
+mkdir -p "${LIB_DIR}"
+mkdir -p "${BUILD_DIR}"
+mkdir -p "${CACHE_DIR}"
+
 echo "Downloading python packages"
-pip install -r requirements.txt --download-cache tmp/cache --no-install --build "${BUILD_DIR}"
+python <<EOF > "${GAE_REQ}"
+import sys
+with open('requirements.txt', 'rt') as f:
+    for line in f:
+        if line.startswith('youtube_dl'):
+            print(line)
+EOF
+
+pip install -r "${GAE_REQ}" --download-cache "${CACHE_DIR}" --no-install --build "${BUILD_DIR}" -U
 
 echo "Copying python packages to ${LIB_DIR}"
-mkdir -p "${LIB_DIR}"
-cp -R "${BUILD_DIR}/Paste/paste" "${LIB_DIR}"
 cp -R "${BUILD_DIR}/youtube-dl/youtube_dl" "${LIB_DIR}"
 
 (
