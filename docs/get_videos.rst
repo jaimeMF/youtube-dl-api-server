@@ -13,16 +13,6 @@ Parameters
 =======
 The url of the page you want the videos from.
 
-
-``format``
-==========
-
-The format you want the response in.
-Now, two values are supported:
-
-* json: Default format
-* yaml
-
 Response
 ********
 
