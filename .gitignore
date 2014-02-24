@@ -39,3 +39,5 @@ youtube_dl
 gae
 # Virtual environments
 VENV*
+# Sphinx build directory
+docs/_build
