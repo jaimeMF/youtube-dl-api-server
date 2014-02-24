@@ -6,7 +6,4 @@ python:
 install:
   - pip install -q -r requirements.txt --use-mirrors
 
-before_script:
-  - python -m youtube_dl_server &
-
 script: nosetests -v

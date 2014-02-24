@@ -8,46 +8,30 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import unittest
 import json
 
-from youtube_dl.utils import compat_urllib_request, compat_urllib_error
-
-
-def getVideoInfo(url, extra_parameters={}):
-    par = ""
-    for extra_par in extra_parameters:
-        par = "&".join((par, "%s=%s" % (extra_par, extra_parameters[extra_par])))
-    request_url = "http://localhost:9191/api/?url=%s%s" % (url, par)
-    response = compat_urllib_request.urlopen(request_url)
-    response_str = response.read().decode('utf-8')
-    return response_str
+from youtube_dl.utils import compat_urllib_parse
+from youtube_dl_server.app import app
 
 
 class ServerTest(unittest.TestCase):
-    def skip_if_conection_refused(self, error):
-        """
-        Skip if the connection was refused
-        """
-        if "refused" in str(error.reason):
-            self.skipTest("Connection refused")
-        else:
-            raise error
+    def setUp(self):
+        self.app = app.test_client()
+
+
+    def get_video_info(self, url):
+        resp = self.app.get('/api/?%s' % compat_urllib_parse.urlencode({'url': url}))
+        return json.loads(resp.data)
 
     def test_TED(self):
         """Test video (TED talk)"""
         test_url = "http://www.ted.com/talks/dan_dennett_on_our_consciousness.html"
-        try:
-            dic = json.loads(getVideoInfo(test_url))
-        except compat_urllib_error.URLError as e:
-            self.skip_if_conection_refused(e)
-        self.assertEqual(dic["url"], test_url)
+        info = self.get_video_info(test_url)
+        self.assertEqual(info["url"], test_url)
 
     def test_Vimeo(self):
         """Test Vimeo support"""
         test_url = 'http://vimeo.com/56015672'
-        try:
-            dic = json.loads(getVideoInfo(test_url))
-        except compat_urllib_error.URLError as e:
-            self.skip_if_conection_refused(e)
-        self.assertEqual(dic["url"], test_url)
+        info = self.get_video_info(test_url)
+        self.assertEqual(info["url"], test_url)
 
 if __name__ == '__main__':
     unittest.main()
