@@ -37,3 +37,5 @@ nosetests.xml
 youtube_dl
 # Gae folder
 gae
+# Virtual environments
+VENV*

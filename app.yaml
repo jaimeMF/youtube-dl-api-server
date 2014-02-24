@@ -23,3 +23,20 @@ libraries:
   version: "2.5.1"
 - name: ssl
   version: latest
+
+
+skip_files:
+# Default values from https://developers.google.com/appengine/docs/python/config/appconfig#Python_app_yaml_Skipping_files
+- ^(.*/)?#.*#$
+- ^(.*/)?.*~$
+- ^(.*/)?.*\.py[co]$
+- ^(.*/)?.*/RCS/.*$
+- ^(.*/)?\..*$
+# Custom values
+- ^VENV.*$
+- ^.*\.egg.*$
+- ^gae/tmp/.*$
+- ^dist/.*$
+- ^docs/.*$
+- ^test/.*$
+- ^devscripts/.*$
