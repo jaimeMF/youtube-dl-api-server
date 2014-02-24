@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name='youtube_dl_server',
@@ -11,7 +11,11 @@ setup(
     author_email='jaime.marquinez.ferrandiz@gmail.com',
     url='https://github.com/jaimeMF/youtube-dl-api-server',
     packages=['youtube_dl_server', 'youtube_dl_server.API'],
-    scripts=['bin/youtube-dl-server'],
+    entry_points={
+        'console_scripts': [
+            'youtube-dl-server = youtube_dl_server.server:main',
+        ],
+    },
 
     install_requires=[
         'WebOb',
