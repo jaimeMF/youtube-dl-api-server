@@ -1,7 +1,6 @@
 import argparse
 
 from .app import app
-from .utils import setup
 from .version import __version__
 
 """
@@ -32,6 +31,5 @@ def main():
     if args.version:
         print(__version__)
         exit(0)
-    
-    setup()
+
     app.run('localhost', args.port)
