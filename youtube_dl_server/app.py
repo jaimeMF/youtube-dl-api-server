@@ -8,25 +8,6 @@ from flask import Flask, jsonify, request, Response
 import youtube_dl
 
 
-class NoneFile(object):
-    '''
-    A file-like object that does nothing
-    '''
-    def write(self, msg):
-        pass
-
-    def flush(self, *args, **kaargs):
-        pass
-
-    def isatty(self):
-        return False
-
-
-class ScreenFile(NoneFile):
-    def write(self, msg):
-        logging.debug(msg)
-
-
 if not hasattr(sys.stderr, 'isatty'):
     #In GAE it's not defined and we must monkeypatch
     sys.stderr.isatty = lambda: False
@@ -35,7 +16,6 @@ if not hasattr(sys.stderr, 'isatty'):
 class SimpleYDL(youtube_dl.YoutubeDL):
     def __init__(self, *args, **kargs):
         super(SimpleYDL, self).__init__(*args, **kargs)
-        self._screen_file = ScreenFile()
         self.add_default_info_extractors()
 
 
@@ -45,6 +25,7 @@ def get_videos(url):
     '''
     ydl_params = {
         'cachedir': None,
+        'logger': app.logger.getChild('youtube-dl'),
     }
     ydl = SimpleYDL(ydl_params)
     res = ydl.extract_info(url, download=False)
