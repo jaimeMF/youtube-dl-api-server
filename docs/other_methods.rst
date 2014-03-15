@@ -1,12 +1,12 @@
 Other API Methods
 #################
 
-list_extractors
-***************
+extractors
+**********
 
-``/api/list_extractors``
+``/api/extractors``
 
-Get a list of available extractors as a list of dictionaries in the following format::
+Returns a dictionary with a ``extractors`` field containing a list of the available extractors in the format::
 
     {"name":"youtube", "working": true}
 

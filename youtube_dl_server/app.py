@@ -77,13 +77,11 @@ def api():
         logging.error(traceback.format_exc())
     return jsonify(result)
 
-@route_api('list_extractors')
+@route_api('extractors')
 @set_access_control
 def list_extractors():
     ie_list = [{
         'name': ie.IE_NAME,
         'working': ie.working(),
     } for ie in youtube_dl.gen_extractors()]
-    # TODO return a dict instead of a list
-    # see http://flask.pocoo.org/docs/security/#json-security
-    return Response(json.dumps(ie_list), mimetype='application/json')
+    return jsonify(extractors=ie_list)
