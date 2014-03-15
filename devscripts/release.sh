@@ -20,6 +20,6 @@ git commit -m "Release $version"
 git tag $version
 
 echo "Uploading to PyPI"
-python setup.py sdist upload --sign
+python setup.py sdist bdist_wheel upload --sign
 
 echo "Done."
