@@ -35,6 +35,12 @@ class ServerTest(unittest.TestCase):
         info = self.get_video_info(test_url)
         self.assertEqual(info["url"], test_url)
 
+    def test_errors(self):
+        resp = self.app.get('/api/?%s' % compat_urllib_parse.urlencode({'url': 'http://www.google.com'}))
+        self.assertEqual(resp.status_code, 500)
+        info = json.loads(resp.data.decode(resp.charset))
+        self.assertIn('error', info)
+
     def test_extractors(self):
         resp = self.get_json('/api/extractors')
         ies = resp['extractors']

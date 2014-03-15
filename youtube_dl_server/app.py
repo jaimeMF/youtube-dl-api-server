@@ -72,10 +72,12 @@ def api():
             'url': url,
             'videos': videos
         }
+        return jsonify(result)
     except errors as err:
-        result = {'error': str(err)}
         logging.error(traceback.format_exc())
-    return jsonify(result)
+        result = jsonify({'error': str(err)})
+        result.status_code = 500
+        return result
 
 @route_api('extractors')
 @set_access_control
