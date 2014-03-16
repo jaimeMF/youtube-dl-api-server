@@ -27,7 +27,7 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: WSGI',
         'Development Status :: 3 - Alpha',
         'Environment :: Console',
-        'License :: OSI Approved :: MIT License',
+        'License :: Public Domain',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',

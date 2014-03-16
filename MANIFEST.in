@@ -1,3 +1,4 @@
+include LICENSE
 include CHANGELOG.rst
 recursive-include docs *
 prune docs/_build
