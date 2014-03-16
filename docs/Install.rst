@@ -14,6 +14,8 @@ From source
 Download the source code and install the dependecies with :command:`pip install -r requirements.txt`.
 Then just run :command:`python -m youtube_dl_server`
 
+Alternatively you can use pip to install it, run :command:`pip install -e .` and then you'll be able to run :program:`youtube-dl-server` (you won't need to rerun the pip command if you do some changes).
+
 
 App Engine
 **********
