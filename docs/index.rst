@@ -14,6 +14,7 @@ Contents:
    install
    server-manual
    api
+   changelog
 
 
 

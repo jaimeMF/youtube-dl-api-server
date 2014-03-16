@@ -6,6 +6,9 @@ API methods
 
 .. http:get:: /api/
 
+    .. deprecated:: 0.1
+        Use :http:get:`/api/info` instead.
+
     :status 301: redirects to :http:get:`/api/info`
 
 .. http:get:: /api/info
