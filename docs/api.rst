@@ -6,6 +6,10 @@ API methods
 
 .. http:get:: /api/
 
+    :status 301: redirects to :http:get:`/api/info`
+
+.. http:get:: /api/info
+
     Get the video information
 
     :query url: The video url
@@ -19,7 +23,7 @@ API methods
 
     .. sourcecode:: http
 
-        GET /api/?url=http://www.ted.com/talks/dan_dennett_on_our_consciousness.html HTTP/1.1
+        GET /api/info?url=http://www.ted.com/talks/dan_dennett_on_our_consciousness.html HTTP/1.1
 
     **Example response**
 

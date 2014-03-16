@@ -21,7 +21,7 @@ class ServerTest(unittest.TestCase):
         return json.loads(resp.data.decode(resp.charset))
 
     def get_video_info(self, url):
-        return self.get_json('/api/?%s' % compat_urllib_parse.urlencode({'url': url}))
+        return self.get_json('/api/info?%s' % compat_urllib_parse.urlencode({'url': url}))
 
     def test_TED(self):
         """Test video (TED talk)"""
@@ -36,7 +36,7 @@ class ServerTest(unittest.TestCase):
         self.assertEqual(info["url"], test_url)
 
     def test_errors(self):
-        resp = self.app.get('/api/?%s' % compat_urllib_parse.urlencode({'url': 'http://www.google.com'}))
+        resp = self.app.get('/api/info?%s' % compat_urllib_parse.urlencode({'url': 'http://www.google.com'}))
         self.assertEqual(resp.status_code, 500)
         info = json.loads(resp.data.decode(resp.charset))
         self.assertIn('error', info)
@@ -45,6 +45,10 @@ class ServerTest(unittest.TestCase):
         resp = self.get_json('/api/extractors')
         ies = resp['extractors']
         self.assertIn('youtube', (ie['name'] for ie in ies))
+
+    def test_root(self):
+        resp = self.app.get('/api/?url=foo')
+        self.assertEqual(resp.status_code, 301)
 
 if __name__ == '__main__':
     unittest.main()

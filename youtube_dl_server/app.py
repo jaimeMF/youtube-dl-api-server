@@ -4,8 +4,10 @@ import logging
 import traceback
 import sys
 
-from flask import Flask, jsonify, request, Response
+from flask import Flask, jsonify, request, Response, redirect
 import youtube_dl
+
+from youtube_dl.utils import compat_urllib_parse
 
 
 if not hasattr(sys.stderr, 'isatty'):
@@ -63,6 +65,13 @@ def set_access_control(f):
 @route_api('')
 @set_access_control
 def api():
+    response = redirect('/api/info?%s' % compat_urllib_parse.urlencode(request.args), 301)
+    response.headers['Deprecated'] = 'Use "/api/info" instead'
+    return response
+
+@route_api('info')
+@set_access_control
+def info():
     url = request.args['url']
     errors = (youtube_dl.utils.DownloadError, youtube_dl.utils.ExtractorError)
     try:
