@@ -10,8 +10,8 @@ Contents:
 
 .. toctree::
    :maxdepth: 2
-   
-   Install
+
+   install
    server-manual
    api
 
