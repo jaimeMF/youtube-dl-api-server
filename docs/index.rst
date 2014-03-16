@@ -13,7 +13,7 @@ Contents:
    
    Install
    server-manual
-   API
+   api
 
 
 
