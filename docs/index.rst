@@ -15,6 +15,7 @@ Contents:
    server-manual
    api
    changelog
+   about
 
 
 
