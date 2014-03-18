@@ -31,22 +31,21 @@ def get_videos(url):
     }
     ydl = SimpleYDL(ydl_params)
     res = ydl.extract_info(url, download=False)
+    return res
 
-    #Do not return yet playlists
-    def clean_res(result):
-        r_type = result.get('_type', 'video')
-        if r_type == 'video':
-            videos = [result]
-        elif r_type == 'playlist':
-            videos = []
-            for entry in result['entries']:
-                videos.extend(clean_res(entry))
-        elif r_type == 'compat_list':
-            videos = []
-            for r in result['entries']:
-                videos.extend(clean_res(r))
-        return videos
-    return clean_res(res)
+def flatten_result(result):
+    r_type = result.get('_type', 'video')
+    if r_type == 'video':
+        videos = [result]
+    elif r_type == 'playlist':
+        videos = []
+        for entry in result['entries']:
+            videos.extend(flatten_result(entry))
+    elif r_type == 'compat_list':
+        videos = []
+        for r in result['entries']:
+            videos.extend(flatten_result(r))
+    return videos
 
 
 app = Flask(__name__)
@@ -75,11 +74,16 @@ def info():
     url = request.args['url']
     errors = (youtube_dl.utils.DownloadError, youtube_dl.utils.ExtractorError)
     try:
-        videos = get_videos(url)
+        result = get_videos(url)
+        key = 'info'
+        # Turn it on by default to keep backwards compatibility.
+        if request.args.get('flatten', 'True').lower() == 'true':
+            result = flatten_result(result)
+            key = 'videos'
         result ={
             'youtube-dl.version': youtube_dl.__version__,
             'url': url,
-            'videos': videos
+            key: result,
         }
         return jsonify(result)
     except errors as err:
