@@ -1,6 +1,11 @@
 youtube-dl-api-server Changelog
 ===============================
 
+Version 0.1.1
+-------------
+
+- Fix access to the version string of youtube-dl in the last versions.
+
 Version 0.1
 -----------
 - The endpoint for getting the video information is now ``/api/info``.
