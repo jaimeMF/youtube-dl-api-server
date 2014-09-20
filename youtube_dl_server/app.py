@@ -8,6 +8,7 @@ from flask import Flask, jsonify, request, Response, redirect
 import youtube_dl
 
 from youtube_dl.utils import compat_urllib_parse
+from youtube_dl.version import __version__ as youtube_dl_version
 
 
 if not hasattr(sys.stderr, 'isatty'):
@@ -81,7 +82,7 @@ def info():
             result = flatten_result(result)
             key = 'videos'
         result ={
-            'youtube-dl.version': youtube_dl.__version__,
+            'youtube-dl.version': youtube_dl_version,
             'url': url,
             key: result,
         }
