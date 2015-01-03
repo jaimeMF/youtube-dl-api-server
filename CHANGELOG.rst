@@ -1,6 +1,11 @@
 youtube-dl-api-server Changelog
 ===============================
 
+Version 0.1.2
+-------------
+
+- Fix disabling the youtube-dl's cache in latest versions.
+
 Version 0.1.1
 -------------
 
