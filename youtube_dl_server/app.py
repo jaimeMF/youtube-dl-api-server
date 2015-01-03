@@ -27,7 +27,7 @@ def get_videos(url):
     Get a list with a dict for every video founded
     '''
     ydl_params = {
-        'cachedir': None,
+        'cachedir': False,
         'logger': app.logger.getChild('youtube-dl'),
     }
     ydl = SimpleYDL(ydl_params)
