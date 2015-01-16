@@ -1,6 +1,7 @@
 #!/bin/sh
 
 root=$(pwd)
+export root
 GAE_DIR=./gae
 BUILD_DIR=${GAE_DIR}/build
 LIB_DIR=${GAE_DIR}/lib
