@@ -32,4 +32,4 @@ def main():
         print(__version__)
         exit(0)
 
-    app.run('localhost', args.port)
+    app.run('0.0.0.0', args.port)
