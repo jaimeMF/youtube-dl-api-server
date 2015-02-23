@@ -24,6 +24,15 @@ def main():
                         help=port_help
                         )
 
+    default_host = 'localhost'
+    host_help = 'The host the server will use. The default is: {}'
+    host_help = host_help.format(default_host)
+    parser.add_argument('--host',
+                        default=default_host,
+                        type=str,
+                        help=host_help
+                        )
+
     parser.add_argument('--version', action='store_true',
                         help='Print the version of the server')
 
@@ -32,4 +41,4 @@ def main():
         print(__version__)
         exit(0)
 
-    app.run('localhost', args.port)
+    app.run(args.host, args.port)
