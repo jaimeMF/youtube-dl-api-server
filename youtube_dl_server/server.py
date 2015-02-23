@@ -29,7 +29,7 @@ def main():
     host_help = port_help.format(default_host)
     parser.add_argument('-h', '--host',
                         default=default_host,
-                        type=int,
+                        type=str,
                         help=host_help
                         )
 
