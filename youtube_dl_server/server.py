@@ -15,23 +15,21 @@ def main():
 
     parser = argparse.ArgumentParser(description=desc)
 
-    default_port = 9191
-    port_help = 'The port the server will use. The default is: {}'
-    port_help = port_help.format(default_port)
-    parser.add_argument('-p', '--port',
-                        default=default_port,
-                        type=int,
-                        help=port_help
-                        )
+    parser.add_argument(
+        '-p', '--port',
+        default=9191,
+        type=int,
+        help='The port the server will use. The default is: %(default)s',
+    )
 
     default_host = 'localhost'
     host_help = 'The host the server will use. The default is: {}'
-    host_help = host_help.format(default_host)
-    parser.add_argument('--host',
-                        default=default_host,
-                        type=str,
-                        help=host_help
-                        )
+    parser.add_argument(
+        '--host',
+        default='localhost',
+        type=str,
+        help='The host the server will use. The default is: %(default)s',
+    )
 
     parser.add_argument('--version', action='store_true',
                         help='Print the version of the server')
