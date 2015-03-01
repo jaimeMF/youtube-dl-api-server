@@ -8,6 +8,8 @@ python:
   - "pypy3"
 
 install:
-  - pip install -e .
+  - pip install -r doc-requirements.txt -e .
 
-script: nosetests -v
+script:
+  - nosetests -v
+  - cd docs; make html
