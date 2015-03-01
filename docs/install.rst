@@ -27,7 +27,5 @@ It needs some external python modules in :samp:`lib`, you can download them by r
 
 Heroku
 ******
-You can also run the server on `Heroku <https://heroku.com>`_ by adding ``gunicorn`` to ``requirements.txt``
-and creating a ``Procfile`` with ``web: gunicorn --pythonpath youtube_dl_server app:app -w 4 --log-file -``.
 
-Commit, push to Heroku and you can make your API calls to :samp:`https://{app-name}.herokuapp.com/`.
+You can also run the server on `Heroku <https://heroku.com>`_, you just need to `setup and deploy the app <https://devcenter.heroku.com/articles/getting-started-with-python#deploy-the-app>`_ and you can make your API calls to :samp:`https://{app-name}.herokuapp.com/`.

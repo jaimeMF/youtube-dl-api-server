@@ -5,6 +5,7 @@ NEXT
 ----
 
 - Add ``--host`` option for choosing the server address. (Added by Alexandr Korsak in `PR #26 <https://github.com/jaimeMF/youtube-dl-api-server/pull/26>`_)
+- Add instructions and sample file for deploying to Heroku. (Thanks to Ronald Ip, see `PR #28 <https://github.com/jaimeMF/youtube-dl-api-server/pull/28>`_)
 
 Version 0.1.2
 -------------
