@@ -7,6 +7,11 @@ python:
   - "pypy"
   - "pypy3"
 
+matrix:
+  allow_failures:
+    # sphinx doesn't support python 3.2
+    - python: "pypy3"
+
 install:
   - pip install -r doc-requirements.txt -e .
 
