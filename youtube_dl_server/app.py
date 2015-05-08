@@ -21,7 +21,7 @@ class SimpleYDL(youtube_dl.YoutubeDL):
         self.add_default_info_extractors()
 
 
-def get_videos(url):
+def get_videos(url, extra_params):
     '''
     Get a list with a dict for every video founded
     '''
@@ -30,6 +30,7 @@ def get_videos(url):
         'cachedir': False,
         'logger': app.logger.getChild('youtube-dl'),
     }
+    ydl_params.update(extra_params)
     ydl = SimpleYDL(ydl_params)
     res = ydl.extract_info(url, download=False)
     return res
@@ -73,14 +74,24 @@ def api():
     response.headers['Deprecated'] = 'Use "/api/info" instead'
     return response
 
+ALLOWED_EXTRA_PARAMS = {
+    'playliststart': int,
+    'playlistend': int,
+    'playlist_items': str,
+}
+
 
 @route_api('info')
 @set_access_control
 def info():
     url = request.args['url']
     errors = (youtube_dl.utils.DownloadError, youtube_dl.utils.ExtractorError)
+    extra_params = {}
+    for k, v in request.args.items():
+        if k in ALLOWED_EXTRA_PARAMS:
+            extra_params[k] = ALLOWED_EXTRA_PARAMS[k](v)
     try:
-        result = get_videos(url)
+        result = get_videos(url, extra_params)
     except errors as err:
         logging.error(traceback.format_exc())
         result = jsonify({'error': str(err)})

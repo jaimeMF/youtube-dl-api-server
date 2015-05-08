@@ -20,6 +20,11 @@ API methods
         Otherwise a single dictionary will be returned in the ``info`` field.
 
         .. warning:: This is ``True`` by default for compatibility reasons, it will be changed in a future version.
+    :query \*: A whitelist of extra parameters are passed directly to the ``YoutubeDL`` object.
+        Currently it supports: ``playliststart``, ``playlistend``, ``playlist_items``.
+        See the `youtube-dl documentation <https://github.com/rg3/youtube-dl/blob/master/youtube_dl/YoutubeDL.py#L92>`_ for more info
+
+
     :resheader Content-Type: ``application/json``
     :resheader Access-Control-Allow-Origin: ``*``
 

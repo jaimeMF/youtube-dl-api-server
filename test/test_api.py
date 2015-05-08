@@ -21,17 +21,14 @@ class ServerTest(unittest.TestCase):
         resp = self.app.get(*args, **kargs)
         return json.loads(resp.data.decode(resp.charset))
 
-    def get_video_info(self, url, flatten=True):
-        args = {
-            'url': url,
-            'flatten': flatten,
-        }
+    def get_video_info(self, url, **kwargs):
+        args = dict(url=url, **kwargs)
         return self.get_json('/api/info?%s' % compat_urllib_parse.urlencode(args))
 
     def test_TED(self):
         """Test video (TED talk)"""
         test_url = "http://www.ted.com/talks/dan_dennett_on_our_consciousness.html"
-        info = self.get_video_info(test_url, False)
+        info = self.get_video_info(test_url, flatten=False)
         self.assertEqual(info["url"], test_url)
         video_info = info['info']
         keys = ['url', 'ext', 'title']
@@ -44,6 +41,13 @@ class ServerTest(unittest.TestCase):
         test_url = 'http://vimeo.com/56015672'
         info = self.get_video_info(test_url)
         self.assertEqual(info["url"], test_url)
+
+    def test_extra_params(self):
+        """Test extra parameters for YoutubeDL"""
+        test_url = 'https://www.youtube.com/playlist?list=PLwiyx1dc3P2JR9N8gQaQN_BCvlSlap7re'
+        info = self.get_video_info(test_url, playliststart='2', playlistend='2')
+        ids = set(v['id'] for v in info['videos'])
+        self.assertEqual(ids, {'FXxLjLQi3Fg'})
 
     def test_flatten(self):
         test_url = 'http://vimeo.com/56015672'
