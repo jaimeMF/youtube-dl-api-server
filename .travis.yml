@@ -13,8 +13,9 @@ matrix:
     - python: "pypy3"
 
 install:
+  - pip install tox
   - pip install -r doc-requirements.txt -e .
 
 script:
-  - nosetests -v
+  - tox -e $(./devscripts/travis-tox-env.sh $TRAVIS_PYTHON_VERSION)
   - cd docs; make html
