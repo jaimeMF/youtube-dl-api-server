@@ -78,6 +78,8 @@ ALLOWED_EXTRA_PARAMS = {
     'playliststart': int,
     'playlistend': int,
     'playlist_items': str,
+    'matchtitle': str,
+    'rejecttitle': str,
 }
 
 
