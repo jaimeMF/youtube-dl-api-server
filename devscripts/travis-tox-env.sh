@@ -3,6 +3,6 @@
 TRAVIS_ENV=$1
 
 case $TRAVIS_ENV in
-    pypy*) echo $TRAVIS_ENV;;
-    *) echo py$TRAVIS_ENV | sed 's/\.//g';;
+    pypy*) echo "$TRAVIS_ENV";;
+    *) echo py"$TRAVIS_ENV" | sed 's/\.//g';;
 esac

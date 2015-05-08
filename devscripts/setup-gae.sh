@@ -1,7 +1,7 @@
 #!/bin/sh
 
-root=$(pwd)
-export root
+ROOT=$(pwd)
+export ROOT
 GAE_DIR=./gae
 BUILD_DIR=${GAE_DIR}/build
 LIB_DIR=${GAE_DIR}/lib
@@ -26,7 +26,7 @@ cp -R "${BUILD_DIR}/itsdangerous/itsdangerous.py" "${LIB_DIR}"
 (
     cd "${LIB_DIR}/youtube_dl"
     echo 'Patching youtube_dl'
-    "${root}/devscripts/gae-patch-youtube-dl.sh"
+    "${ROOT}/devscripts/gae-patch-youtube-dl.sh"
 )
 
 rm -rf "${BUILD_DIR}"

@@ -19,7 +19,7 @@ $EDITOR CHANGELOG.rst
 
 git add youtube_dl_server/version.py app.yaml setup.py CHANGELOG.rst
 git commit -m "Release $version"
-git tag $version
+git tag "$version"
 
 echo "Uploading to PyPI"
 python setup.py sdist bdist_wheel upload --sign
