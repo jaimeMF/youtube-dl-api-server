@@ -76,6 +76,20 @@ def handle_youtube_dl_error(error):
     return result
 
 
+class WrongParameterTypeError(ValueError):
+    def __init__(self, value, type, parameter):
+        message = '"{}" expects a {}, got "{}"'.format(parameter, type, value)
+        super(WrongParameterTypeError, self).__init__(message)
+
+
+@app.errorhandler(WrongParameterTypeError)
+def handle_wrong_parameter(error):
+    logging.error(traceback.format_exc())
+    result = jsonify({'error': str(error)})
+    result.status_code = 400
+    return result
+
+
 @route_api('')
 @set_access_control
 def api():
@@ -83,10 +97,24 @@ def api():
     response.headers['Deprecated'] = 'Use "/api/info" instead'
     return response
 
+
+def query_bool(value, name, default=None):
+    if value is None:
+        return default
+    value = value.lower()
+    if value == 'true':
+        return True
+    elif value == 'false':
+        return False
+    else:
+        raise WrongParameterTypeError(value, 'bool', name)
+
+
 ALLOWED_EXTRA_PARAMS = {
     'playliststart': int,
     'playlistend': int,
     'playlist_items': str,
+    'playlistreverse': bool,
     'matchtitle': str,
     'rejecttitle': str,
 }
@@ -99,11 +127,14 @@ def info():
     extra_params = {}
     for k, v in request.args.items():
         if k in ALLOWED_EXTRA_PARAMS:
-            extra_params[k] = ALLOWED_EXTRA_PARAMS[k](v)
+            convertf = ALLOWED_EXTRA_PARAMS[k]
+            if convertf == bool:
+                convertf = lambda x: query_bool(x, k)
+            extra_params[k] = convertf(v)
     result = get_videos(url, extra_params)
     key = 'info'
     # Turn it on by default to keep backwards compatibility.
-    if request.args.get('flatten', 'True').lower() == 'true':
+    if query_bool(request.args.get('flatten'), 'flatten', True):
         result = flatten_result(result)
         key = 'videos'
     result = {

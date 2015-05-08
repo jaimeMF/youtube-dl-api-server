@@ -62,6 +62,11 @@ class ServerTest(unittest.TestCase):
         info = json.loads(resp.data.decode(resp.charset))
         self.assertIn('error', info)
 
+        resp = self.app.get('/api/info?%s' % compat_urllib_parse.urlencode({'url': 'foo', 'playlistreverse': 'invalid'}))
+        self.assertEqual(resp.status_code, 400)
+        info = json.loads(resp.data.decode(resp.charset))
+        self.assertIn('error', info)
+
     def test_extractors(self):
         resp = self.get_json('/api/extractors')
         ies = resp['extractors']

@@ -21,7 +21,7 @@ API methods
 
         .. warning:: This is ``True`` by default for compatibility reasons, it will be changed in a future version.
     :query \*: A whitelist of extra parameters are passed directly to the ``YoutubeDL`` object.
-        Currently it supports: ``playliststart``, ``playlistend``, ``playlist_items``, ``matchtitle``, ``rejecttitle``.
+        Currently it supports: ``playliststart``, ``playlistend``, ``playlist_items``, ``playlistreverse``, ``matchtitle``, ``rejecttitle``.
         See the `youtube-dl documentation <https://github.com/rg3/youtube-dl/blob/master/youtube_dl/YoutubeDL.py#L92>`_ for more info
 
 
@@ -29,6 +29,7 @@ API methods
     :resheader Access-Control-Allow-Origin: ``*``
 
     :status 200: On success
+    :status 400: For invalid query parameters
     :status 500: If the extraction fails
 
     |ex-request|
