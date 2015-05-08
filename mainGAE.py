@@ -8,4 +8,4 @@ import youtube_dl
 youtube_dl.extractor.youtube.get_cachedir = lambda *args, **kargs: None
 
 
-from youtube_dl_server.app import app
+from youtube_dl_server.app import app  # noqa: app is used by GAE

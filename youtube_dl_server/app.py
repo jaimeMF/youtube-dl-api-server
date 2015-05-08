@@ -1,10 +1,9 @@
 import functools
-import json
 import logging
 import traceback
 import sys
 
-from flask import Flask, jsonify, request, Response, redirect
+from flask import Flask, jsonify, request, redirect
 import youtube_dl
 
 from youtube_dl.utils import compat_urllib_parse
@@ -12,7 +11,7 @@ from youtube_dl.version import __version__ as youtube_dl_version
 
 
 if not hasattr(sys.stderr, 'isatty'):
-    #In GAE it's not defined and we must monkeypatch
+    # In GAE it's not defined and we must monkeypatch
     sys.stderr.isatty = lambda: False
 
 
@@ -35,6 +34,7 @@ def get_videos(url):
     res = ydl.extract_info(url, download=False)
     return res
 
+
 def flatten_result(result):
     r_type = result.get('_type', 'video')
     if r_type == 'video':
@@ -52,8 +52,10 @@ def flatten_result(result):
 
 app = Flask(__name__)
 
+
 def route_api(subpath, *args, **kargs):
-    return app.route('/api/'+subpath, *args, **kargs)
+    return app.route('/api/' + subpath, *args, **kargs)
+
 
 def set_access_control(f):
     @functools.wraps(f)
@@ -63,12 +65,14 @@ def set_access_control(f):
         return response
     return wrapper
 
+
 @route_api('')
 @set_access_control
 def api():
     response = redirect('/api/info?%s' % compat_urllib_parse.urlencode(request.args), 301)
     response.headers['Deprecated'] = 'Use "/api/info" instead'
     return response
+
 
 @route_api('info')
 @set_access_control
@@ -82,7 +86,7 @@ def info():
         if request.args.get('flatten', 'True').lower() == 'true':
             result = flatten_result(result)
             key = 'videos'
-        result ={
+        result = {
             'youtube-dl.version': youtube_dl_version,
             'url': url,
             key: result,
@@ -93,6 +97,7 @@ def info():
         result = jsonify({'error': str(err)})
         result.status_code = 500
         return result
+
 
 @route_api('extractors')
 @set_access_control

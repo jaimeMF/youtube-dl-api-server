@@ -22,8 +22,6 @@ def main():
         help='The port the server will use. The default is: %(default)s',
     )
 
-    default_host = 'localhost'
-    host_help = 'The host the server will use. The default is: {}'
     parser.add_argument(
         '--host',
         default='localhost',
