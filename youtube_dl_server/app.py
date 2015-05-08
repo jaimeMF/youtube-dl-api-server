@@ -81,22 +81,22 @@ def info():
     errors = (youtube_dl.utils.DownloadError, youtube_dl.utils.ExtractorError)
     try:
         result = get_videos(url)
-        key = 'info'
-        # Turn it on by default to keep backwards compatibility.
-        if request.args.get('flatten', 'True').lower() == 'true':
-            result = flatten_result(result)
-            key = 'videos'
-        result = {
-            'youtube-dl.version': youtube_dl_version,
-            'url': url,
-            key: result,
-        }
-        return jsonify(result)
     except errors as err:
         logging.error(traceback.format_exc())
         result = jsonify({'error': str(err)})
         result.status_code = 500
         return result
+    key = 'info'
+    # Turn it on by default to keep backwards compatibility.
+    if request.args.get('flatten', 'True').lower() == 'true':
+        result = flatten_result(result)
+        key = 'videos'
+    result = {
+        'youtube-dl.version': youtube_dl_version,
+        'url': url,
+        key: result,
+    }
+    return jsonify(result)
 
 
 @route_api('extractors')
