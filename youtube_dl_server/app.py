@@ -67,6 +67,15 @@ def set_access_control(f):
     return wrapper
 
 
+@app.errorhandler(youtube_dl.utils.DownloadError)
+@app.errorhandler(youtube_dl.utils.ExtractorError)
+def handle_youtube_dl_error(error):
+    logging.error(traceback.format_exc())
+    result = jsonify({'error': str(error)})
+    result.status_code = 500
+    return result
+
+
 @route_api('')
 @set_access_control
 def api():
@@ -87,18 +96,11 @@ ALLOWED_EXTRA_PARAMS = {
 @set_access_control
 def info():
     url = request.args['url']
-    errors = (youtube_dl.utils.DownloadError, youtube_dl.utils.ExtractorError)
     extra_params = {}
     for k, v in request.args.items():
         if k in ALLOWED_EXTRA_PARAMS:
             extra_params[k] = ALLOWED_EXTRA_PARAMS[k](v)
-    try:
-        result = get_videos(url, extra_params)
-    except errors as err:
-        logging.error(traceback.format_exc())
-        result = jsonify({'error': str(err)})
-        result.status_code = 500
-        return result
+    result = get_videos(url, extra_params)
     key = 'info'
     # Turn it on by default to keep backwards compatibility.
     if request.args.get('flatten', 'True').lower() == 'true':
