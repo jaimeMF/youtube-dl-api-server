@@ -3,10 +3,8 @@ import logging
 import traceback
 import sys
 
-from flask import Flask, jsonify, request, redirect
+from flask import Flask, jsonify, request
 import youtube_dl
-
-from youtube_dl.utils import compat_urllib_parse
 from youtube_dl.version import __version__ as youtube_dl_version
 
 
@@ -88,14 +86,6 @@ def handle_wrong_parameter(error):
     result = jsonify({'error': str(error)})
     result.status_code = 400
     return result
-
-
-@route_api('')
-@set_access_control
-def api():
-    response = redirect('/api/info?%s' % compat_urllib_parse.urlencode(request.args), 301)
-    response.headers['Deprecated'] = 'Use "/api/info" instead'
-    return response
 
 
 def query_bool(value, name, default=None):

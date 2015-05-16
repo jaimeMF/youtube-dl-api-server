@@ -77,9 +77,5 @@ class ServerTest(unittest.TestCase):
         ies = resp['extractors']
         self.assertIn('youtube', (ie['name'] for ie in ies))
 
-    def test_root(self):
-        resp = self.app.get('/api/?url=foo')
-        self.assertEqual(resp.status_code, 301)
-
 if __name__ == '__main__':
     unittest.main()

@@ -4,6 +4,7 @@ youtube-dl-api-server Changelog
 NEXT
 ----
 
+- ``/api/`` no longer redirects to ``/api/info``.
 - Add ``--host`` option for choosing the server address. (Added by Alexandr Korsak in `PR #26 <https://github.com/jaimeMF/youtube-dl-api-server/pull/26>`_)
 - Add instructions and sample file for deploying to Heroku. (Thanks to Ronald Ip, see `PR #28 <https://github.com/jaimeMF/youtube-dl-api-server/pull/28>`_)
 - Force the youtube-dl ``format`` parameter to ``best``. Since version ``2015.04.26`` it uses ``bestvideo+bestaudio/best`` if ffmpeg/libav is installed.
