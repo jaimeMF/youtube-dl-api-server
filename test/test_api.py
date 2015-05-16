@@ -28,7 +28,7 @@ class ServerTest(unittest.TestCase):
     def test_TED(self):
         """Test video (TED talk)"""
         test_url = "http://www.ted.com/talks/dan_dennett_on_our_consciousness.html"
-        info = self.get_video_info(test_url, flatten=False)
+        info = self.get_video_info(test_url)
         self.assertEqual(info["url"], test_url)
         video_info = info['info']
         keys = ['url', 'ext', 'title']
@@ -46,17 +46,17 @@ class ServerTest(unittest.TestCase):
         """Test extra parameters for YoutubeDL"""
         test_url = 'https://www.youtube.com/playlist?list=PLwiyx1dc3P2JR9N8gQaQN_BCvlSlap7re'
         info = self.get_video_info(test_url, playliststart='2', playlistend='2')
-        ids = set(v['id'] for v in info['videos'])
+        ids = set(v['id'] for v in info['info']['entries'])
         self.assertEqual(ids, {'FXxLjLQi3Fg'})
 
         test_url = 'https://www.youtube.com/watch?v=QRS8MkLhQmM'
-        video_info = self.get_video_info(test_url, flatten=False, writesubtitles='true', subtitleslangs='it,fr')['info']
+        video_info = self.get_video_info(test_url, writesubtitles='true', subtitleslangs='it,fr')['info']
         requested_subs = video_info['requested_subtitles']
         self.assertEqual(set(requested_subs.keys()), {'it', 'fr'})
 
     def test_flatten(self):
         test_url = 'http://vimeo.com/56015672'
-        info = self.get_video_info(test_url)
+        info = self.get_video_info(test_url, flatten=True)
         videos = info['videos']
         video_info = videos[0]
         self.assertIsInstance(video_info, dict)

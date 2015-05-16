@@ -130,8 +130,7 @@ def info():
             extra_params[k] = convertf(v)
     result = get_videos(url, extra_params)
     key = 'info'
-    # Turn it on by default to keep backwards compatibility.
-    if query_bool(request.args.get('flatten'), 'flatten', True):
+    if query_bool(request.args.get('flatten'), 'flatten', False):
         result = flatten_result(result)
         key = 'videos'
     result = {

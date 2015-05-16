@@ -12,7 +12,14 @@ API methods
     :query boolean flatten: If ``True`` return a list of dictionaries in the ``videos`` field.
         Otherwise a single dictionary will be returned in the ``info`` field.
 
-        .. warning:: This is ``True`` by default for compatibility reasons, it will be changed in a future version.
+        .. versionchanged:: NEXT
+
+            The default value is ``False``.
+
+        .. deprecated:: NEXT
+
+            This parameter will be removed in a future version, you'll have to implemenent this functionality in your client.
+
     :query \*: A whitelist of extra parameters are passed directly to the ``YoutubeDL`` object.
         Currently it supports: |info-extra-params|.
         See the `youtube-dl documentation <https://github.com/rg3/youtube-dl/blob/master/youtube_dl/YoutubeDL.py#L92>`_ for more info
