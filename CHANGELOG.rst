@@ -1,8 +1,8 @@
 youtube-dl-api-server Changelog
 ===============================
 
-NEXT
-----
+Version 0.2
+-----------
 
 - ``/api/`` no longer redirects to ``/api/info``.
 - Change default value of the ``flatten`` parameter to ``False`` and deprecate it.
