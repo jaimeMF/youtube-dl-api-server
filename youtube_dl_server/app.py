@@ -117,6 +117,11 @@ ALLOWED_EXTRA_PARAMS = {
     'playlistreverse': bool,
     'matchtitle': str,
     'rejecttitle': str,
+    'writesubtitles': bool,
+    'writeautomaticsub': bool,
+    'allsubtitles': bool,
+    'subtitlesformat': str,
+    'subtitleslangs': list,
 }
 
 
@@ -130,6 +135,8 @@ def info():
             convertf = ALLOWED_EXTRA_PARAMS[k]
             if convertf == bool:
                 convertf = lambda x: query_bool(x, k)
+            elif convertf == list:
+                convertf = lambda x: x.split(',')
             extra_params[k] = convertf(v)
     result = get_videos(url, extra_params)
     key = 'info'

@@ -49,6 +49,11 @@ class ServerTest(unittest.TestCase):
         ids = set(v['id'] for v in info['videos'])
         self.assertEqual(ids, {'FXxLjLQi3Fg'})
 
+        test_url = 'https://www.youtube.com/watch?v=QRS8MkLhQmM'
+        video_info = self.get_video_info(test_url, flatten=False, writesubtitles='true', subtitleslangs='it,fr')['info']
+        requested_subs = video_info['requested_subtitles']
+        self.assertEqual(set(requested_subs.keys()), {'it', 'fr'})
+
     def test_flatten(self):
         test_url = 'http://vimeo.com/56015672'
         info = self.get_video_info(test_url)
