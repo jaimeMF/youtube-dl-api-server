@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import sys
+import datetime
 import os
+import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath('.')))
 import youtube_dl_server as ydl_server
@@ -21,7 +22,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'youtube-dl-api-server'
-copyright = '2013, Jaime Marquínez Ferrándiz'
+copyright = '2013-{now:%Y}, Jaime Marquínez Ferrándiz'.format(now=datetime.datetime.now())
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
