@@ -3,31 +3,32 @@
 ROOT=$(pwd)
 export ROOT
 GAE_DIR=./gae
-BUILD_DIR=${GAE_DIR}/build
+VENV=${GAE_DIR}/VENV
 LIB_DIR=${GAE_DIR}/lib
 GAE_REQ=${GAE_DIR}/gae_requirements.txt
-CACHE_DIR=${GAE_DIR}/tmp/cache
 
 mkdir -p "${LIB_DIR}"
-mkdir -p "${BUILD_DIR}"
-mkdir -p "${CACHE_DIR}"
+
+if [ ! -d "${VENV}" ]; then
+    echo "Creating virtualenv"
+    virtualenv "${VENV}"
+fi
+. "${VENV}/bin/activate"
 
 echo "Downloading python packages"
 cp requirements.txt "${GAE_REQ}"
 
-pip install -r "${GAE_REQ}" --download-cache "${CACHE_DIR}" --no-install --build "${BUILD_DIR}" -U
+pip install -r "${GAE_REQ}" -U
 
 echo "Copying python packages to ${LIB_DIR}"
-cp -R "${BUILD_DIR}/youtube-dl/youtube_dl" "${LIB_DIR}"
-cp -R "${BUILD_DIR}/flask/flask" "${LIB_DIR}"
-cp -R "${BUILD_DIR}/Werkzeug/werkzeug" "${LIB_DIR}"
-cp -R "${BUILD_DIR}/itsdangerous/itsdangerous.py" "${LIB_DIR}"
+SITE_PACKAGES=$(echo "${VENV}"/lib/*/site-packages)
+cp -R "${SITE_PACKAGES}/youtube_dl" "${LIB_DIR}"
+cp -R "${SITE_PACKAGES}/flask" "${LIB_DIR}"
+cp -R "${SITE_PACKAGES}/werkzeug" "${LIB_DIR}"
+cp -R "${SITE_PACKAGES}/itsdangerous.py" "${LIB_DIR}"
 
 (
     cd "${LIB_DIR}/youtube_dl"
     echo 'Patching youtube_dl'
     "${ROOT}/devscripts/gae-patch-youtube-dl.sh"
 )
-
-rm -rf "${BUILD_DIR}"
-
