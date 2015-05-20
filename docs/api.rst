@@ -12,11 +12,11 @@ API methods
     :query boolean flatten: If ``True`` return a list of dictionaries in the ``videos`` field.
         Otherwise a single dictionary will be returned in the ``info`` field.
 
-        .. versionchanged:: NEXT
+        .. versionchanged:: 0.2
 
             The default value is ``False``.
 
-        .. deprecated:: NEXT
+        .. deprecated:: 0.2
 
             This parameter will be removed in a future version, you'll have to implemenent this functionality in your client.
 
