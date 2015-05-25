@@ -35,7 +35,7 @@ skip_files:
 # Custom values
 - ^VENV.*$
 - ^.*\.egg.*$
-- ^gae/tmp/.*$
+- ^gae/VENV$
 - ^dist/.*$
 - ^docs/.*$
 - ^test/.*$
