@@ -49,5 +49,4 @@
         "webpage_url_basename": "dan_dennett_on_our_consciousness.html"
       },
       "url": "http://www.ted.com/talks/dan_dennett_on_our_consciousness.html",
-      "youtube-dl.version": "2014.03.12"
     }
