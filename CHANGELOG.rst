@@ -4,6 +4,7 @@ youtube-dl-api-server Changelog
 NEXT
 ----
 
+- Add ``--number-processes`` option for choosing the number of processes the server will use, defaults to 5. (Added by Carlos Ramos in `PR #42 <https://github.com/jaimeMF/youtube-dl-api-server/pull/42>`_)
 - Provide a ``Blueprint`` for the API.
 
 Version 0.2

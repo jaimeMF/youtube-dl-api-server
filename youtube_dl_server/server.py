@@ -29,6 +29,14 @@ def main():
         help='The host the server will use. The default is: %(default)s',
     )
 
+    parser.add_argument(
+        '--number-processes',
+        default=5,
+        type=int,
+        help=('The number of processes the server will use. The default is: '
+              '%(default)s'),
+    )
+
     parser.add_argument('--version', action='store_true',
                         help='Print the version of the server')
 
@@ -37,4 +45,4 @@ def main():
         print(__version__)
         exit(0)
 
-    app.run(args.host, args.port)
+    app.run(args.host, args.port, processes=args.number_processes)
