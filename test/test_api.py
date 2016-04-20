@@ -11,6 +11,7 @@ import json
 
 from youtube_dl.utils import compat_urllib_parse
 from youtube_dl_server.app import app
+from youtube_dl_server.version import __version__
 
 
 class ServerTest(unittest.TestCase):
@@ -76,6 +77,10 @@ class ServerTest(unittest.TestCase):
         resp = self.get_json('/api/extractors')
         ies = resp['extractors']
         self.assertIn('youtube', (ie['name'] for ie in ies))
+
+    def test_version(self):
+        resp = self.get_json('/api/version')
+        self.assertEqual(resp['youtube-dl-api-server'], __version__)
 
 if __name__ == '__main__':
     unittest.main()

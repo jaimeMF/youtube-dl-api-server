@@ -7,6 +7,8 @@ from flask import Flask, Blueprint, current_app, jsonify, request
 import youtube_dl
 from youtube_dl.version import __version__ as youtube_dl_version
 
+from .version import __version__
+
 
 if not hasattr(sys.stderr, 'isatty'):
     # In GAE it's not defined and we must monkeypatch
@@ -134,7 +136,6 @@ def info():
         result = flatten_result(result)
         key = 'videos'
     result = {
-        'youtube-dl.version': youtube_dl_version,
         'url': url,
         key: result,
     }
@@ -149,6 +150,16 @@ def list_extractors():
         'working': ie.working(),
     } for ie in youtube_dl.gen_extractors()]
     return jsonify(extractors=ie_list)
+
+
+@route_api('version')
+@set_access_control
+def version():
+    result = {
+        'youtube-dl': youtube_dl_version,
+        'youtube-dl-api-server': __version__,
+    }
+    return jsonify(result)
 
 app = Flask(__name__)
 app.register_blueprint(api)
