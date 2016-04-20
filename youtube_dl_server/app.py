@@ -6,6 +6,7 @@ import sys
 from flask import Flask, jsonify, request
 import youtube_dl
 from youtube_dl.version import __version__ as youtube_dl_version
+from .version import __version__ as youtube_dl_api_server_version
 
 
 if not hasattr(sys.stderr, 'isatty'):
@@ -134,7 +135,6 @@ def info():
         result = flatten_result(result)
         key = 'videos'
     result = {
-        'youtube-dl.version': youtube_dl_version,
         'url': url,
         key: result,
     }
@@ -149,3 +149,13 @@ def list_extractors():
         'working': ie.working(),
     } for ie in youtube_dl.gen_extractors()]
     return jsonify(extractors=ie_list)
+
+
+@route_api('version')
+@set_access_control
+def version():
+    result = {
+        'youtube-dl': youtube_dl_version,
+        'youtube-dl-api-server': youtube_dl_api_server_version,
+    }
+    return jsonify(result)

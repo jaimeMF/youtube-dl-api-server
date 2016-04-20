@@ -90,6 +90,34 @@ API methods
 
         }
 
+
+.. http:get:: /api/version
+
+    Get the youtube-dl and youtube-dl-api-server version
+
+    :resheader Content-Type: ``application/json``
+    :resheader Access-Control-Allow-Origin: ``*``
+    :status 200: On success
+
+    |ex-request|
+
+    .. sourcecode:: http
+
+        GET /api/version HTTP/1.1
+
+    |ex-response|
+
+    .. sourcecode:: http
+
+        HTTP/1.1 200 OK
+        Access-Control-Allow-Origin: *
+        Content-Type: application/json
+
+        {
+            "youtube-dl": "2016.04.19",
+            "youtube-dl-api-server": "0.2.1"
+        }
+
 Test server
 -----------
 
