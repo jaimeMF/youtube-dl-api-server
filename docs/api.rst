@@ -115,7 +115,7 @@ API methods
 
         {
             "youtube-dl": "2016.04.19",
-            "youtube-dl-api-server": "0.2.1"
+            "youtube-dl-api-server": "0.2"
         }
 
 Test server
