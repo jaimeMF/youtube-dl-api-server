@@ -149,3 +149,56 @@ def list_extractors():
         'working': ie.working(),
     } for ie in youtube_dl.gen_extractors()]
     return jsonify(extractors=ie_list)
+
+def route(subpath, *args, **kargs):
+    return app.route('/' + subpath, *args, **kargs)
+
+    
+@route('watch')
+@set_access_control
+def watch():
+    print('watch')
+    url = request.args['url']
+    extra_params = {}
+    for k, v in request.args.items():
+        if k in ALLOWED_EXTRA_PARAMS:
+            convertf = ALLOWED_EXTRA_PARAMS[k]
+            if convertf == bool:
+                convertf = lambda x: query_bool(x, k)
+            elif convertf == list:
+                convertf = lambda x: x.split(',')
+            extra_params[k] = convertf(v)
+    ydl_params = {
+        'format': 'mp4',
+        'cachedir': False,
+        'logger': app.logger.getChild('youtube-dl'),
+        # add source_address?
+    }
+    ydl_params.update(extra_params)
+    ydl = SimpleYDL(ydl_params)
+    res = ydl.extract_info(url, download=False)
+    return redirect(res["url"], code=302)
+
+@route('listen')
+@set_access_control
+def listen():
+    url = request.args['url']
+    extra_params = {}
+    for k, v in request.args.items():
+        if k in ALLOWED_EXTRA_PARAMS:
+            convertf = ALLOWED_EXTRA_PARAMS[k]
+            if convertf == bool:
+                convertf = lambda x: query_bool(x, k)
+            elif convertf == list:
+                convertf = lambda x: x.split(',')
+            extra_params[k] = convertf(v)
+    ydl_params = {
+        'format': 'm4a',
+        'cachedir': False,
+        'logger': app.logger.getChild('youtube-dl'),
+        # add source_address?
+    }
+    ydl_params.update(extra_params)
+    ydl = SimpleYDL(ydl_params)
+    res = ydl.extract_info(url, download=False)
+    return redirect(res["url"], code=302)
