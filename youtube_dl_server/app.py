@@ -3,7 +3,7 @@ import logging
 import traceback
 import sys
 
-from flask import Flask, jsonify, request
+from flask import Flask, Blueprint, current_app, jsonify, request
 import youtube_dl
 from youtube_dl.version import __version__ as youtube_dl_version
 
@@ -26,7 +26,7 @@ def get_videos(url, extra_params):
     ydl_params = {
         'format': 'best',
         'cachedir': False,
-        'logger': app.logger.getChild('youtube-dl'),
+        'logger': current_app.logger.getChild('youtube-dl'),
     }
     ydl_params.update(extra_params)
     ydl = SimpleYDL(ydl_params)
@@ -49,11 +49,11 @@ def flatten_result(result):
     return videos
 
 
-app = Flask(__name__)
+api = Blueprint('api', __name__)
 
 
 def route_api(subpath, *args, **kargs):
-    return app.route('/api/' + subpath, *args, **kargs)
+    return api.route('/api/' + subpath, *args, **kargs)
 
 
 def set_access_control(f):
@@ -65,8 +65,8 @@ def set_access_control(f):
     return wrapper
 
 
-@app.errorhandler(youtube_dl.utils.DownloadError)
-@app.errorhandler(youtube_dl.utils.ExtractorError)
+@api.errorhandler(youtube_dl.utils.DownloadError)
+@api.errorhandler(youtube_dl.utils.ExtractorError)
 def handle_youtube_dl_error(error):
     logging.error(traceback.format_exc())
     result = jsonify({'error': str(error)})
@@ -80,7 +80,7 @@ class WrongParameterTypeError(ValueError):
         super(WrongParameterTypeError, self).__init__(message)
 
 
-@app.errorhandler(WrongParameterTypeError)
+@api.errorhandler(WrongParameterTypeError)
 def handle_wrong_parameter(error):
     logging.error(traceback.format_exc())
     result = jsonify({'error': str(error)})
@@ -149,3 +149,6 @@ def list_extractors():
         'working': ie.working(),
     } for ie in youtube_dl.gen_extractors()]
     return jsonify(extractors=ie_list)
+
+app = Flask(__name__)
+app.register_blueprint(api)

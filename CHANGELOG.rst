@@ -1,6 +1,11 @@
 youtube-dl-api-server Changelog
 ===============================
 
+NEXT
+----
+
+- Provide a ``Blueprint`` for the API.
+
 Version 0.2
 -----------
 
