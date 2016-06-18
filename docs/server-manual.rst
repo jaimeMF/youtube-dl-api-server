@@ -13,6 +13,10 @@ Run the API server
 
     The host the server will use. The default host is localhost
 
+.. option:: --number-processes NUMBER_PROCESSES
+
+    The number of processes the server will use. The default is: 5
+
 .. option:: -h , --help
 
     Display the help text
