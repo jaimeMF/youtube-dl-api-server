@@ -103,6 +103,7 @@ def query_bool(value, name, default=None):
 
 
 ALLOWED_EXTRA_PARAMS = {
+    'format': str,
     'playliststart': int,
     'playlistend': int,
     'playlist_items': str,

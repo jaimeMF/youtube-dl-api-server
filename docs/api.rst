@@ -81,6 +81,20 @@ API methods
         Content-Type: text/html; charset=utf-8
         Location: http://download.ted.com/talks/DanDennett_2003-1500k.mp4?dnt
 
+    |ex-request|
+
+    .. sourcecode:: http
+
+        GET /api/play?url=http://www.ted.com/talks/dan_dennett_on_our_consciousness.html&format=bestaudio HTTP/1.1
+
+    |ex-response|
+
+    .. sourcecode:: http
+
+        HTTP/1.0 302 FOUND
+        Content-Type: text/html; charset=utf-8
+        Location: https://hls.ted.com/videos/DanDennett_2003/audio/600k.m3u8?uniqueId=5ed2e870
+
 
 .. http:get:: /api/extractors
 
