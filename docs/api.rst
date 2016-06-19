@@ -53,6 +53,35 @@ API methods
     .. include:: example_info_flatten.rst.inc
 
 
+.. http:get:: /api/play
+
+    Extract the info and redirect to the URL of the first video found for the requested URL.
+    Useful for media players that accept HTTP URLs.
+    Accepts the same parameters as :http:get:`/api/info`.
+
+    :status 302: On success
+    :status 400: For invalid query parameters
+    :status 500: If the extraction fails
+
+    .. versionadded:: NEXT
+
+        Added endpoint.
+
+    |ex-request|
+
+    .. sourcecode:: http
+
+        GET /api/play?url=http://www.ted.com/talks/dan_dennett_on_our_consciousness.html HTTP/1.1
+
+    |ex-response|
+
+    .. sourcecode:: http
+
+        HTTP/1.0 302 FOUND
+        Content-Type: text/html; charset=utf-8
+        Location: http://download.ted.com/talks/DanDennett_2003-1500k.mp4?dnt
+
+
 .. http:get:: /api/extractors
 
     Get the available extractors

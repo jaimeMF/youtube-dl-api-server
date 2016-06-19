@@ -3,7 +3,7 @@ import logging
 import traceback
 import sys
 
-from flask import Flask, Blueprint, current_app, jsonify, request
+from flask import Flask, Blueprint, current_app, jsonify, request, redirect
 import youtube_dl
 from youtube_dl.version import __version__ as youtube_dl_version
 
@@ -117,9 +117,7 @@ ALLOWED_EXTRA_PARAMS = {
 }
 
 
-@route_api('info')
-@set_access_control
-def info():
+def get_result():
     url = request.args['url']
     extra_params = {}
     for k, v in request.args.items():
@@ -130,7 +128,14 @@ def info():
             elif convertf == list:
                 convertf = lambda x: x.split(',')
             extra_params[k] = convertf(v)
-    result = get_videos(url, extra_params)
+    return get_videos(url, extra_params)
+
+
+@route_api('info')
+@set_access_control
+def info():
+    url = request.args['url']
+    result = get_result()
     key = 'info'
     if query_bool(request.args.get('flatten'), 'flatten', False):
         result = flatten_result(result)
@@ -140,6 +145,12 @@ def info():
         key: result,
     }
     return jsonify(result)
+
+
+@route_api('play')
+def play():
+    result = flatten_result(get_result())
+    return redirect(result[0]['url'])
 
 
 @route_api('extractors')
