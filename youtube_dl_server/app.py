@@ -118,9 +118,8 @@ ALLOWED_EXTRA_PARAMS = {
 }
 
 
-def get_result():
+def get_result(extra_params = {}):
     url = request.args['url']
-    extra_params = {}
     for k, v in request.args.items():
         if k in ALLOWED_EXTRA_PARAMS:
             convertf = ALLOWED_EXTRA_PARAMS[k]
@@ -153,6 +152,10 @@ def play():
     result = flatten_result(get_result())
     return redirect(result[0]['url'])
 
+@route_api('listen')
+def listen():
+    result = flatten_result(get_result({'format': 'm4a'}))
+    return redirect(result[0]['url'])
 
 @route_api('extractors')
 @set_access_control
