@@ -63,7 +63,7 @@ API methods
     :status 400: For invalid query parameters
     :status 500: If the extraction fails
 
-    .. versionadded:: NEXT
+    .. versionadded:: 0.3
 
         Added endpoint.
 
@@ -142,7 +142,7 @@ API methods
     :resheader Access-Control-Allow-Origin: ``*``
     :status 200: On success
 
-    .. versionadded:: NEXT
+    .. versionadded:: 0.3
 
         Added endpoint.
 

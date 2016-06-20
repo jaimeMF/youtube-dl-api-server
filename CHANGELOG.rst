@@ -1,8 +1,8 @@
 youtube-dl-api-server Changelog
 ===============================
 
-NEXT
-----
+Version 0.3
+-----------
 
 - Add ``/api/play`` endpoint. (Adapted from a patch by eadmaster in `PR #46 <https://github.com/jaimeMF/youtube-dl-api-server/pull/46>`_)
 - Add ``/api/version`` endpoint. (Added by Carlos Ramos in `PR #43 <https://github.com/jaimeMF/youtube-dl-api-server/pull/43>`_)
