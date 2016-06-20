@@ -11,3 +11,6 @@ build
 gae
 # Sphinx build directory
 docs/_build
+
+# configuration file for the app
+application.cfg

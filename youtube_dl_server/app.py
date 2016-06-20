@@ -3,7 +3,7 @@ import logging
 import traceback
 import sys
 
-from flask import Flask, Blueprint, current_app, jsonify, request, redirect
+from flask import Flask, Blueprint, current_app, jsonify, request, redirect, abort
 import youtube_dl
 from youtube_dl.version import __version__ as youtube_dl_version
 
@@ -88,6 +88,14 @@ def handle_wrong_parameter(error):
     result = jsonify({'error': str(error)})
     result.status_code = 400
     return result
+
+
+@api.before_request
+def block_on_user_agent():
+    user_agent = request.user_agent.string
+    forbidden_uas = current_app.config.get('FORBIDDEN_USER_AGENTS', [])
+    if user_agent in forbidden_uas:
+        abort(429)
 
 
 def query_bool(value, name, default=None):
@@ -175,3 +183,4 @@ def version():
 
 app = Flask(__name__)
 app.register_blueprint(api)
+app.config.from_pyfile('../application.cfg', silent=True)
