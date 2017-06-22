@@ -1,0 +1,39 @@
+runtime: python27
+api_version: 1
+threadsafe: no
+
+handlers:
+- url: /api/.*
+  script: mainGAE.app
+  secure: optional
+
+- url: /robots.txt
+  static_files: robots.txt
+  upload: robots.txt
+
+- url: /.*
+  static_files: index.html
+  upload: index.html
+
+libraries:
+- name: ssl
+  version: latest
+- name: jinja2
+  version: "2.6"
+
+
+skip_files:
+# Default values from https://developers.google.com/appengine/docs/python/config/appconfig#Python_app_yaml_Skipping_files
+- ^(.*/)?#.*#$
+- ^(.*/)?.*~$
+- ^(.*/)?.*\.py[co]$
+- ^(.*/)?.*/RCS/.*$
+- ^(.*/)?\..*$
+# Custom values
+- ^VENV.*$
+- ^.*\.egg.*$
+- ^gae/VENV$
+- ^dist/.*$
+- ^docs/.*$
+- ^test/.*$
+- ^devscripts/.*$
