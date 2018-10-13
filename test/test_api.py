@@ -45,10 +45,10 @@ class ServerTest(unittest.TestCase):
 
     def test_extra_params(self):
         """Test extra parameters for YoutubeDL"""
-        test_url = 'https://www.youtube.com/playlist?list=PLwiyx1dc3P2JR9N8gQaQN_BCvlSlap7re'
+        test_url = 'https://www.youtube.com/playlist?list=PLcUid3OP_4OV46dBG6R2AvV_-QyB61WRH'
         info = self.get_video_info(test_url, playliststart='2', playlistend='2')
         ids = set(v['id'] for v in info['info']['entries'])
-        self.assertEqual(ids, {'FXxLjLQi3Fg'})
+        self.assertEqual(ids, {'_DiEbmg3lU8'})
 
         test_url = 'https://www.youtube.com/watch?v=QRS8MkLhQmM'
         video_info = self.get_video_info(test_url, writesubtitles='true', subtitleslangs='it,fr')['info']
