@@ -29,3 +29,5 @@ Heroku
 ******
 
 You can also run the server on `Heroku <https://heroku.com>`_, you just need to `setup and deploy the app <https://devcenter.heroku.com/articles/getting-started-with-python#deploy-the-app>`_ and you can make your API calls to :samp:`https://{app-name}.herokuapp.com/`.
+
+You can use the following link to auto deploy to heroku.  https://heroku.com/deploy?template=https://github.com/andrewstech/youtube-dl-api-server
