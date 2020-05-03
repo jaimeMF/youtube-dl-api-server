@@ -1,0 +1,6 @@
+version: '3'
+services:
+  ytube_dl:
+    build: .
+    ports:
+      - "9191:9191"
