@@ -1,2 +1,4 @@
+sphinx >= 2
 sphinxcontrib-httpdomain >= 1.4.0
+sphinx-rtd-theme >= 0.5
 -r requirements.txt
