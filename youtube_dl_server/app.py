@@ -4,8 +4,15 @@ import traceback
 import sys
 
 from flask import Flask, Blueprint, current_app, jsonify, request, redirect, abort
-import youtube_dl
-from youtube_dl.version import __version__ as youtube_dl_version
+try:
+    import youtube_dl as ytdl
+    from youtube_dl.version import __version__ as youtube_dl_version
+    ytdl_variant = 'youtube_dl'
+except ImportError:
+    import yt_dlp as ytdl
+    from yt_dlp.version import __version__ as youtube_dl_version
+    ytdl_variant = 'yt_dlp'
+
 
 from .version import __version__
 
@@ -15,7 +22,7 @@ if not hasattr(sys.stderr, 'isatty'):
     sys.stderr.isatty = lambda: False
 
 
-class SimpleYDL(youtube_dl.YoutubeDL):
+class SimpleYDL(ytdl.YoutubeDL):
     def __init__(self, *args, **kargs):
         super(SimpleYDL, self).__init__(*args, **kargs)
         self.add_default_info_extractors()
@@ -67,8 +74,8 @@ def set_access_control(f):
     return wrapper
 
 
-@api.errorhandler(youtube_dl.utils.DownloadError)
-@api.errorhandler(youtube_dl.utils.ExtractorError)
+@api.errorhandler(ytdl.utils.DownloadError)
+@api.errorhandler(ytdl.utils.ExtractorError)
 def handle_youtube_dl_error(error):
     logging.error(traceback.format_exc())
     result = jsonify({'error': str(error)})
@@ -168,7 +175,7 @@ def list_extractors():
     ie_list = [{
         'name': ie.IE_NAME,
         'working': ie.working(),
-    } for ie in youtube_dl.gen_extractors()]
+    } for ie in ytdl.gen_extractors()]
     return jsonify(extractors=ie_list)
 
 
@@ -178,6 +185,7 @@ def version():
     result = {
         'youtube-dl': youtube_dl_version,
         'youtube-dl-api-server': __version__,
+        'youtube-dl-variant': ytdl_variant,
     }
     return jsonify(result)
 

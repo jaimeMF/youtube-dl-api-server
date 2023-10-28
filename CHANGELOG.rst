@@ -1,6 +1,11 @@
 youtube-dl-api-server Changelog
 ===============================
 
+DEV
+---
+
+- Add compatibility with yt-dlp
+
 Version 0.3
 -----------
 

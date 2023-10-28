@@ -163,7 +163,8 @@ API methods
 
         {
             "youtube-dl": "2016.04.19",
-            "youtube-dl-api-server": "0.2"
+            "youtube-dl-api-server": "0.2",
+            "youtube-dl-variant":"youtube_dl"
         }
 
 Test server
