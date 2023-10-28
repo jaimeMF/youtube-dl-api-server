@@ -15,7 +15,7 @@ forbidden_modules = ['fcntl', 'ctypes', 'netrc', 'ctypes']
 new_lines = (re.sub(
     r'import ({})'.format('|'.join(map(re.escape, forbidden_modules))),
     r'()# Removed \1 import',
-    l) for l in lines)
+    line) for line in lines)
 
 with open(filename, 'wt', encoding='utf-8') as f:
     f.writelines(new_lines)

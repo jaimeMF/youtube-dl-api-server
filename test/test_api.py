@@ -1,15 +1,14 @@
 #!/usr/bin/env python
 from __future__ import unicode_literals
 
-import sys
-# Allow direct execution
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 import unittest
 import json
 
-from youtube_dl.utils import compat_urllib_parse
+try:
+    from youtube_dl.utils import compat_urllib_parse
+except ImportError:
+    import urllib.parse as compat_urllib_parse
+
 from youtube_dl_server.app import app
 from youtube_dl_server.version import __version__
 
@@ -20,7 +19,7 @@ class ServerTest(unittest.TestCase):
 
     def get_json(self, *args, **kargs):
         resp = self.app.get(*args, **kargs)
-        return json.loads(resp.data.decode(resp.charset))
+        return json.loads(resp.data.decode())
 
     def get_video_info(self, url, **kwargs):
         args = dict(url=url, **kwargs)
@@ -28,7 +27,7 @@ class ServerTest(unittest.TestCase):
 
     def test_TED(self):
         """Test video (TED talk)"""
-        test_url = "http://www.ted.com/talks/dan_dennett_on_our_consciousness.html"
+        test_url = "https://www.ted.com/talks/dan_dennett_the_illusion_of_consciousness"
         info = self.get_video_info(test_url)
         self.assertEqual(info["url"], test_url)
         video_info = info['info']
@@ -65,12 +64,12 @@ class ServerTest(unittest.TestCase):
     def test_errors(self):
         resp = self.app.get('/api/info?%s' % compat_urllib_parse.urlencode({'url': 'http://www.google.com'}))
         self.assertEqual(resp.status_code, 500)
-        info = json.loads(resp.data.decode(resp.charset))
+        info = json.loads(resp.data.decode())
         self.assertIn('error', info)
 
         resp = self.app.get('/api/info?%s' % compat_urllib_parse.urlencode({'url': 'foo', 'playlistreverse': 'invalid'}))
         self.assertEqual(resp.status_code, 400)
-        info = json.loads(resp.data.decode(resp.charset))
+        info = json.loads(resp.data.decode())
         self.assertIn('error', info)
 
     def test_extractors(self):
@@ -83,8 +82,9 @@ class ServerTest(unittest.TestCase):
         self.assertEqual(resp['youtube-dl-api-server'], __version__)
 
     def test_play(self):
-        resp = self.app.get('/api/play?%s' % compat_urllib_parse.urlencode({'url': 'test:ted'}))
+        resp = self.app.get('/api/play?%s' % compat_urllib_parse.urlencode({'url': 'https://www.ted.com/talks/dan_dennett_the_illusion_of_consciousness'}))
         self.assertEqual(resp.status_code, 302)
+
 
 if __name__ == '__main__':
     unittest.main()
