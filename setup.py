@@ -18,7 +18,7 @@ setup(
     },
 
     install_requires=[
-        'Flask',
+        'Flask >= 1.0',
         'youtube_dl >= 2015.01.02',
     ],
 

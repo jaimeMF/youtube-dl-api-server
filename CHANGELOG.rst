@@ -5,6 +5,7 @@ DEV
 ---
 
 - Add compatibility with yt-dlp
+- Fix compatibility for flask >= 1
 
 Version 0.3
 -----------

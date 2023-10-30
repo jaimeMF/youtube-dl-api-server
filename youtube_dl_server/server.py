@@ -45,4 +45,5 @@ def main():
         print(__version__)
         exit(0)
 
-    app.run(args.host, args.port, processes=args.number_processes)
+    app.run(args.host, args.port, processes=args.number_processes,
+            threaded=True if args.number_processes == 1 else False)
